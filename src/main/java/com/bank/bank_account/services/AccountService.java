@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,5 +33,13 @@ public class AccountService {
             accountsBalance.add(accountBalance);
         }
         return AccountsBalanceOverviewResponse.builder().accountsBalanceOverview(accountsBalance).build();
+    }
+
+    public Optional<Account> findAccountById(long accountId) {
+        return accountRepository.findById(accountId);
+    }
+
+    public void saveAccount(Account account) {
+        accountRepository.save(account);
     }
 }

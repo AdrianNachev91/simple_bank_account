@@ -40,7 +40,7 @@ public class TransactionsHistory {
     private Double charge;
 
     @Column(nullable = false, name = "extra_charge", columnDefinition = "DECIMAL(10,5) default 0")
-    private Double extraCharge;
+    private Double additionalCharge;
 
     @Column(nullable = false, name = "created_on")
     @CreationTimestamp(source = SourceType.DB)

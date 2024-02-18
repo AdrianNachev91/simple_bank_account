@@ -5,3 +5,5 @@ INSERT INTO account (id, first_name, last_name, email, iban, current_balance, cr
 INSERT INTO payment_card (id, account_id, card_type, expiry_date, created_on, last_updated_on) VALUES (1, 1, 'DEBIT', '2026-02-17', '2024-02-17', '2024-02-17');
 INSERT INTO payment_card (id, account_id, card_type, expiry_date, created_on, last_updated_on) VALUES (2, 2, 'CREDIT', '2027-02-17', '2024-02-16', '2024-02-17');
 INSERT INTO payment_card (id, account_id, card_type, expiry_date, created_on, last_updated_on) VALUES (3, 3, 'DEBIT', '2028-02-17', '2024-02-15', '2024-02-17');
+INSERT INTO payment_card (id, account_id, card_type, expiry_date, created_on, last_updated_on) VALUES (4, 1, 'DEBIT', '2026-02-17', '2024-02-17', '2024-02-17');
+INSERT INTO payment_card (id, account_id, card_type, expiry_date, created_on, last_updated_on) VALUES (5, 1, 'DEBIT', '2023-02-17', '2024-02-17', '2024-02-17');

@@ -1,0 +1,13 @@
+{
+  "message": "Validation error",
+  "errors": [
+    {
+      "key": "paymentCartId",
+      "value": "must not be null"
+    },
+    {
+      "key": "payOrWithdrawAmount",
+      "value": "must be greater than or equal to 0.01"
+    }
+  ]
+}

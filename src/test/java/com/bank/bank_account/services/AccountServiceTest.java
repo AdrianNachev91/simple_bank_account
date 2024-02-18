@@ -6,10 +6,12 @@ import com.bank.bank_account.utils.TestDataUtils;
 import com.bank.bank_account.web.response.AccountBalance;
 import com.bank.bank_account.web.response.AccountsBalanceOverviewResponse;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.verification.VerificationMode;
 
 import java.util.List;
 
@@ -29,6 +31,7 @@ class AccountServiceTest {
         accountService = new AccountService(accountRepository);
     }
 
+    @DisplayName("Get all accounts balance overview")
     @Test
     void getAccountsBalanceOverview() {
 
@@ -50,5 +53,19 @@ class AccountServiceTest {
         assertThat(overviewList.get(1).getCurrentBalance()).isEqualTo(1232.12);
         assertThat(overviewList.get(2).getAccountId()).isEqualTo(3);
         assertThat(overviewList.get(2).getCurrentBalance()).isEqualTo(43.21);
+    }
+
+    @DisplayName("Save account")
+    @Test
+    void saveAccount() {
+
+        // Prepare
+        Account account = Account.builder().id(1L).build();
+
+        // Test
+        accountService.saveAccount(account);
+
+        // Verify
+        verify(accountRepository).save(account);
     }
 }
