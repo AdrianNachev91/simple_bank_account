@@ -47,3 +47,5 @@ It currently uses a hard coded api token secret. This in reality would be fetche
 3. Improve withdraw and transfer so that only users owning the account can do those actions. Fine grain balances 
 endpoint so that tokens with certain access rights can use it.
 4. Replace h2 with a database supporting advanced database features like PostgreSQL
+5. Implement a migration library like Flyway or Liquibase
+6. Implement monitoring and metric tools
