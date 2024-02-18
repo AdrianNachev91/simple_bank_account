@@ -20,15 +20,21 @@ import java.time.LocalDateTime;
 public class PaymentCard {
 
     @Id
-    @Column(name = "account_id")
-    private Long accountId;
+    @Column(nullable = false, name = "id")
+    @GeneratedValue
+    private Long id;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     @Column(nullable = false, name = "card_type")
     @Enumerated(EnumType.STRING)
     private CardType cardType;
 
-    @Column(nullable = false, name = "current_balance", columnDefinition = "DECIMAL(10,5)")
-    private Double currentBalance;
+    @Column(nullable = false, name = "expiry_date")
+    @CreationTimestamp(source = SourceType.DB)
+    private LocalDateTime expiryDate;
 
     @Column(nullable = false, name = "created_on")
     @CreationTimestamp(source = SourceType.DB)
@@ -37,8 +43,4 @@ public class PaymentCard {
     @Column(nullable = false, name = "last_updated_on")
     @UpdateTimestamp(source = SourceType.DB)
     private LocalDateTime lastUpdatedOn;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
-    private Account account;
 }

@@ -1,7 +1,7 @@
-INSERT INTO account (id, first_name, last_name, email, created_on, last_updated_on) VALUES (1, 'Adrian', 'Nachev', 'adrian@example.com', '2024-02-17', '2024-02-17');
-INSERT INTO account (id, first_name, last_name, email, created_on, last_updated_on) VALUES (2, 'Suzan', 'Hart', 'suzan@example.com', '2024-02-16', '2024-02-17');
-INSERT INTO account (id, first_name, last_name, email, created_on, last_updated_on) VALUES (3, 'Peter', 'Jhones', 'peter@example.com', '2024-02-15', '2024-02-17');
+INSERT INTO account (id, first_name, last_name, email, iban, current_balance, created_on, last_updated_on) VALUES (1, 'Adrian', 'Nachev', 'adrian@example.com', 'NL63RABO3665292913', 453.43, '2024-02-17', '2024-02-17');
+INSERT INTO account (id, first_name, last_name, email, iban, current_balance, created_on, last_updated_on) VALUES (2, 'Suzan', 'Hart', 'suzan@example.com', 'NL49RABO5350244469', 1232.12, '2024-02-16', '2024-02-17');
+INSERT INTO account (id, first_name, last_name, email, iban, current_balance, created_on, last_updated_on) VALUES (3, 'Peter', 'Jhones', 'peter@example.com', 'NL72RABO8727958558', 43.21, '2024-02-15', '2024-02-17');
 
-INSERT INTO payment_card (account_id, card_type, current_balance, created_on, last_updated_on) VALUES (1, 'DEBIT', 453.43, '2024-02-17', '2024-02-17');
-INSERT INTO payment_card (account_id, card_type, current_balance, created_on, last_updated_on) VALUES (2, 'CREDIT', 1232.12, '2024-02-16', '2024-02-17');
-INSERT INTO payment_card (account_id, card_type, current_balance, created_on, last_updated_on) VALUES (3, 'DEBIT', 43.21, '2024-02-15', '2024-02-17');
+INSERT INTO payment_card (id, account_id, card_type, expiry_date, created_on, last_updated_on) VALUES (1, 1, 'DEBIT', '2026-02-17', '2024-02-17', '2024-02-17');
+INSERT INTO payment_card (id, account_id, card_type, expiry_date, created_on, last_updated_on) VALUES (2, 2, 'CREDIT', '2027-02-17', '2024-02-16', '2024-02-17');
+INSERT INTO payment_card (id, account_id, card_type, expiry_date, created_on, last_updated_on) VALUES (3, 3, 'DEBIT', '2028-02-17', '2024-02-15', '2024-02-17');

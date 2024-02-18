@@ -1,0 +1,28 @@
+{
+  "accountsBalanceOverview": [
+    {
+      "accountId": 1,
+      "firstName": "Adrian",
+      "lastName": "Nachev",
+      "email": "adrian@test.com",
+      "iban": "NL63RABO3665292913",
+      "currentBalance": 453.43
+    },
+    {
+      "accountId": 2,
+      "firstName": "Suzan",
+      "lastName": "Hart",
+      "email": "suzan@test.com",
+      "iban": "NL49RABO5350244469",
+      "currentBalance": 1232.12
+    },
+    {
+      "accountId": 3,
+      "firstName": "Peter",
+      "lastName": "Jhones",
+      "email": "peter@test.com",
+      "iban": "NL72RABO8727958558",
+      "currentBalance": 43.21
+    }
+  ]
+}

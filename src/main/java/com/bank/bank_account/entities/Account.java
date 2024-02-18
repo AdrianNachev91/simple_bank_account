@@ -32,6 +32,12 @@ public class Account {
     @Column(nullable = false, name = "email")
     private String email;
 
+    @Column(nullable = false, name = "iban")
+    private String iban;
+
+    @Column(nullable = false, name = "current_balance", columnDefinition = "DECIMAL(10,5)")
+    private Double currentBalance;
+
     @Column(nullable = false, name = "created_on")
     @CreationTimestamp(source = SourceType.DB)
     private LocalDateTime createdOn;
