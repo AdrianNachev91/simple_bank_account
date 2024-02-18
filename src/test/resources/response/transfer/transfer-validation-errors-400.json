@@ -1,0 +1,17 @@
+{
+  "message": "Validation error",
+  "errors": [
+    {
+      "key": "paymentCartId",
+      "value": "must not be null"
+    },
+    {
+      "key": "fromAccountId",
+      "value": "must not be null"
+    },
+    {
+      "key": "transferAmount",
+      "value": "must be greater than or equal to 0.01"
+    }
+  ]
+}

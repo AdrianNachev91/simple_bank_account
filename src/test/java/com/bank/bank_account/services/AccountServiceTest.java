@@ -68,4 +68,19 @@ class AccountServiceTest {
         // Verify
         verify(accountRepository).save(account);
     }
+
+    @DisplayName("Save multiple accounts")
+    @Test
+    void saveMultipleAccounts() {
+
+        // Prepare
+        Account account1 = Account.builder().id(1L).build();
+        Account account2 = Account.builder().id(2L).build();
+
+        // Test
+        accountService.saveMultipleAccounts(List.of(account1, account2));
+
+        // Verify
+        verify(accountRepository).saveAll(List.of(account1, account2));
+    }
 }

@@ -25,8 +25,12 @@ public class TransactionsHistory {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "account_id")
-    private Account account;
+    @JoinColumn(nullable = false, name = "from_account_id")
+    private Account fromAccount;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "to_account_id")
+    private Account toAccount;
 
     @Column(nullable = false, name = "card_type")
     @Enumerated(EnumType.STRING)

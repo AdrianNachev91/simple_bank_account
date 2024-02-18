@@ -1,0 +1,6 @@
+{
+  "fromAccountId": true,
+  "toAccountId": false,
+  "paymentCartId": "invalid",
+  "transferAmount": "invalid"
+}

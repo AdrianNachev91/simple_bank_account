@@ -48,7 +48,7 @@ class AccountControllerTest {
         mockMvc.perform(get("/account/all/balance"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(TestUtils.extractJson("response/accounts-balance-overview-200.json")));
+                .andExpect(content().json(TestUtils.extractJson("response/balance-overview/accounts-balance-overview-200.json")));
     }
 
     @DisplayName("Withdraw with debit card")
@@ -58,10 +58,10 @@ class AccountControllerTest {
 
         mockMvc.perform(post("/account/{accountId}/withdraw", 1)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(TestUtils.extractJson("request/withdraw-with-debit-200.json")))
+                        .content(TestUtils.extractJson("request/withdraw/withdraw-with-debit-200.json")))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(TestUtils.extractJson("response/withdraw-with-debit-200.json")));
+                .andExpect(content().json(TestUtils.extractJson("response/withdraw/withdraw-with-debit-200.json")));
     }
 
     @DisplayName("Withdraw with credit card")
@@ -71,10 +71,10 @@ class AccountControllerTest {
 
         mockMvc.perform(post("/account/{accountId}/withdraw", 1)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(TestUtils.extractJson("request/withdraw-with-credit-200.json")))
+                        .content(TestUtils.extractJson("request/withdraw/withdraw-with-credit-200.json")))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(TestUtils.extractJson("response/withdraw-with-credit-200.json")));
+                .andExpect(content().json(TestUtils.extractJson("response/withdraw/withdraw-with-credit-200.json")));
     }
 
     @DisplayName("Withdraw with invalid json")
@@ -84,10 +84,23 @@ class AccountControllerTest {
 
         mockMvc.perform(post("/account/{accountId}/withdraw", 1)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(TestUtils.extractJson("request/withdraw-validation-errors-400.json")))
+                        .content(TestUtils.extractJson("request/withdraw/withdraw-invalid-json-400.json")))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(TestUtils.extractJson("response/withdraw-validation-errors-400.json")));
+                .andExpect(content().json(TestUtils.extractJson("response/withdraw/withdraw-invalid-json-400.json")));
+    }
+
+    @DisplayName("Withdraw with validation errors")
+    @SneakyThrows
+    @Test
+    void withdrawValidationErrors() {
+
+        mockMvc.perform(post("/account/{accountId}/withdraw", 1)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtils.extractJson("request/withdraw/withdraw-validation-errors-400.json")))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(TestUtils.extractJson("response/withdraw/withdraw-validation-errors-400.json")));
     }
 
     @DisplayName("Withdraw with non-existent account")
@@ -97,10 +110,10 @@ class AccountControllerTest {
 
         mockMvc.perform(post("/account/{accountId}/withdraw", 4)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(TestUtils.extractJson("request/withdraw-with-debit-200.json")))
+                        .content(TestUtils.extractJson("request/withdraw/withdraw-with-debit-200.json")))
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(TestUtils.extractJson("response/withdraw-account-not-found-404.json")));
+                .andExpect(content().json(TestUtils.extractJson("response/withdraw/withdraw-account-not-found-404.json")));
     }
 
     @DisplayName("Withdraw with invalid card")
@@ -110,10 +123,10 @@ class AccountControllerTest {
 
         mockMvc.perform(post("/account/{accountId}/withdraw", 1)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(TestUtils.extractJson("request/withdraw-with-invalid-card-400.json")))
+                        .content(TestUtils.extractJson("request/withdraw/withdraw-with-invalid-card-400.json")))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(TestUtils.extractJson("response/withdraw-with-invalid-card-400.json")));
+                .andExpect(content().json(TestUtils.extractJson("response/withdraw/withdraw-with-invalid-card-400.json")));
     }
 
     @DisplayName("Withdraw more than current balance")
@@ -123,9 +136,100 @@ class AccountControllerTest {
 
         mockMvc.perform(post("/account/{accountId}/withdraw", 1)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(TestUtils.extractJson("request/withdraw-with-debit-overdraft-400.json")))
+                        .content(TestUtils.extractJson("request/withdraw/withdraw-with-debit-overdraft-400.json")))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(TestUtils.extractJson("response/withdraw-with-debit-overdraft-400.json")));
+                .andExpect(content().json(TestUtils.extractJson("response/withdraw/withdraw-with-debit-overdraft-400.json")));
+    }
+
+    @DisplayName("Transfer with debit card")
+    @SneakyThrows
+    @Test
+    void transferDebit() {
+
+        mockMvc.perform(post("/account/transfer")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtils.extractJson("request/transfer/transfer-with-debit-200.json")))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(TestUtils.extractJson("response/transfer/transfer-with-debit-200.json")));
+    }
+
+    @DisplayName("Transfer with credit card")
+    @SneakyThrows
+    @Test
+    void transferCredit() {
+
+        mockMvc.perform(post("/account/transfer")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtils.extractJson("request/transfer/transfer-with-credit-200.json")))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(TestUtils.extractJson("response/transfer/transfer-with-credit-200.json")));
+    }
+
+    @DisplayName("Transfer with invalid json")
+    @SneakyThrows
+    @Test
+    void transferInvalidJson() {
+
+        mockMvc.perform(post("/account/transfer")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtils.extractJson("request/transfer/transfer-invalid-json-400.json")))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(TestUtils.extractJson("response/transfer/transfer-invalid-json-400.json")));
+    }
+
+    @DisplayName("Transfer with validation errors")
+    @SneakyThrows
+    @Test
+    void transferValidationErrors() {
+
+        mockMvc.perform(post("/account/transfer")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtils.extractJson("request/transfer/transfer-validation-errors-400.json")))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(TestUtils.extractJson("response/transfer/transfer-validation-errors-400.json")));
+    }
+
+    @DisplayName("Transfer with non-existent account")
+    @SneakyThrows
+    @Test
+    void transferAccountFromNotFound() {
+
+        mockMvc.perform(post("/account/transfer")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtils.extractJson("request/transfer/transfer-from-account-not-found-404.json")))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(TestUtils.extractJson("response/transfer/transfer-account-not-found-404.json")));
+    }
+
+    @DisplayName("Transfer to non-existent account")
+    @SneakyThrows
+    @Test
+    void transferToAccountNotFound() {
+
+        mockMvc.perform(post("/account/transfer")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtils.extractJson("request/transfer/transfer-to-account-not-found-404.json")))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(TestUtils.extractJson("response/transfer/transfer-account-not-found-404.json")));
+    }
+
+    @DisplayName("Transfer more than current balance")
+    @SneakyThrows
+    @Test
+    void transferNotEnoughBalance() {
+
+        mockMvc.perform(post("/account/transfer", 1)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtils.extractJson("request/transfer/transfer-with-debit-overdraft-400.json")))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(TestUtils.extractJson("response/transfer/transfer-with-debit-overdraft-400.json")));
     }
 }

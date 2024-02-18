@@ -9,10 +9,17 @@ import java.math.BigDecimal;
 
 @Builder
 @Accessors(chain = true)
-public record TransactionRequest(
+public record TransferRequest(
+        @NotNull
+        Long fromAccountId,
+
+        @NotNull
+        Long toAccountId,
+
         @NotNull
         Long paymentCartId,
+
         @NotNull
         @DecimalMin("0.01")
-        BigDecimal payOrWithdrawAmount
+        BigDecimal transferAmount
 ) {}

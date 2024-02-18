@@ -1,0 +1,6 @@
+{
+  "fromAccountId": 1,
+  "toAccountId": 2,
+  "paymentCartId": 4,
+  "transferAmount": 100
+}

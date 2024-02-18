@@ -2,9 +2,11 @@ package com.bank.bank_account.web;
 
 import com.bank.bank_account.services.AccountService;
 import com.bank.bank_account.services.TransactionService;
-import com.bank.bank_account.web.request.TransactionRequest;
+import com.bank.bank_account.web.request.TransferRequest;
+import com.bank.bank_account.web.request.WithdrawRequest;
 import com.bank.bank_account.web.response.AccountsBalanceOverviewResponse;
-import com.bank.bank_account.web.response.TransactionResponse;
+import com.bank.bank_account.web.response.TransferResponse;
+import com.bank.bank_account.web.response.WithdrawResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,9 +29,16 @@ public class AccountController {
 
     @PostMapping(value = "/{accountId}/withdraw", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public TransactionResponse withdraw(@PathVariable(value = "accountId") long accountId,
-                                        @RequestBody @Valid TransactionRequest transactionRequest
+    public WithdrawResponse withdraw(@PathVariable(value = "accountId") long accountId,
+                                     @RequestBody @Valid WithdrawRequest withdrawRequest
     ) {
-        return transactionService.withdraw(accountId, transactionRequest);
+        return transactionService.withdraw(accountId, withdrawRequest);
+    }
+
+    @PostMapping(value = "/transfer", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public TransferResponse transfer(@RequestBody @Valid TransferRequest transferRequest
+    ) {
+        return transactionService.transfer(transferRequest);
     }
 }

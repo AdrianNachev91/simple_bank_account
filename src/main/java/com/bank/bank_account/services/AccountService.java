@@ -42,4 +42,8 @@ public class AccountService {
     public void saveAccount(Account account) {
         accountRepository.save(account);
     }
+
+    public void saveMultipleAccounts(List<Account> accounts) {
+        accountRepository.saveAll(accounts);
+    }
 }
