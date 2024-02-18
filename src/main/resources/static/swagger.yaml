@@ -1,0 +1,216 @@
+openapi: 3.0.1
+info:
+  title: BankAccount
+  description: BankAccount API
+  version: '1.0'
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /account/{accountId}/withdraw:
+    post:
+      tags:
+        - account-controller
+      operationId: withdraw
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WithdrawRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WithdrawResponse'
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankAccountErrorResponse'
+        '401':
+          description: UNAUTHORIZED
+        '404':
+          description: NOT_FOUND
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankAccountErrorResponse'
+  /account/transfer:
+    post:
+      tags:
+        - account-controller
+      operationId: transfer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferResponse'
+        '400':
+          description: BAD_REQUEST
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankAccountErrorResponse'
+        '401':
+          description: UNAUTHORIZED
+        '404':
+          description: NOT_FOUND
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankAccountErrorResponse'
+  /account/all/balance:
+    get:
+      tags:
+        - account-controller
+      operationId: getAccountsBalanceOverview
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountsBalanceOverviewResponse'
+        '401':
+          description: UNAUTHORIZED
+components:
+  schemas:
+
+    WithdrawRequest:
+      required:
+        - payOrWithdrawAmount
+        - paymentCartId
+      type: object
+      properties:
+        paymentCartId:
+          type: integer
+          format: int64
+          example: 1
+        payOrWithdrawAmount:
+          minimum: 0.01
+          exclusiveMinimum: false
+          type: number
+          example: 120
+
+    WithdrawResponse:
+      type: object
+      properties:
+        iban:
+          type: string
+          example: NL63RABO3665292913
+        charge:
+          type: number
+          format: double
+          example: 120
+        additionalCharge:
+          type: number
+          format: double
+          example: 0
+
+    TransferRequest:
+      required:
+        - fromAccountId
+        - paymentCartId
+        - toAccountId
+        - transferAmount
+      type: object
+      properties:
+        fromAccountId:
+          type: integer
+          format: int64
+        toAccountId:
+          type: integer
+          format: int64
+        paymentCartId:
+          type: integer
+          format: int64
+        transferAmount:
+          minimum: 0.01
+          exclusiveMinimum: false
+          type: number
+
+    TransferResponse:
+      type: object
+      properties:
+        fromIban:
+          type: string
+        toIban:
+          type: string
+        charge:
+          type: number
+          format: double
+        additionalCharge:
+          type: number
+          format: double
+
+    AccountBalance:
+      type: object
+      properties:
+        accountId:
+          type: integer
+          format: int64
+          example: 1
+        firstName:
+          type: string
+          example: Suzan
+        lastName:
+          type: string
+          example: Storm
+        email:
+          type: string
+          example: suzan@example.com
+        iban:
+          type: string
+          example: NL63RABO3665292913
+        currentBalance:
+          type: number
+          format: double
+          example: 453.43
+
+    AccountsBalanceOverviewResponse:
+      type: object
+      properties:
+        accountsBalanceOverview:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountBalance'
+
+    BankAccountErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: There is a problem with this request
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+
+    Error:
+      type: object
+      properties:
+        key:
+          type: string
+          example: key
+        value:
+          type: string
+          example: value

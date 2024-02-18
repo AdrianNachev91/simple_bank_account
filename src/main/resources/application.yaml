@@ -12,3 +12,6 @@ spring:
   sql:
     init:
       mode: always
+springdoc:
+  swagger-ui:
+    url: swagger.yaml
